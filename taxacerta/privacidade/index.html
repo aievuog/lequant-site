@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-PT">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade — TaxaCerta</title>
+<meta name="description" content="Política de privacidade da aplicação TaxaCerta.">
+<style>
+:root{color-scheme:light dark;--bg:#fff;--fg:#14181c;--muted:#5b666f;--line:#d8dde2;--head:#f7f9fa;--code:#f2f4f6;--link:#00754a}
+@media (prefers-color-scheme:dark){:root{--bg:#14181c;--fg:#e8edf1;--muted:#9aa6b0;--line:#2f3841;--head:#1b2126;--code:#1b2126;--link:#4fbb8b}}
+html{background:var(--bg)}
+body{font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:44rem;margin:3rem auto;padding:0 1.25rem;background:var(--bg);color:var(--fg)}
+h1{font-size:1.6rem;line-height:1.3;margin:0 0 1.5rem}
+h2{font-size:1.2rem;margin:2.5rem 0 .75rem}
+h3{font-size:1rem;margin:1.75rem 0 .5rem}
+p{margin:0 0 1rem}
+ol{margin:0 0 1rem;padding-left:1.25rem}
+li{margin:0 0 .35rem}
+code{font-size:.9em;background:var(--code);padding:.1em .3em;border-radius:3px}
+.tw{overflow-x:auto;margin:0 0 1rem}
+table{border-collapse:collapse;font-size:.9rem;min-width:40rem}
+th,td{border:1px solid var(--line);padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:var(--head)}
+a{color:var(--link)}
+footer{margin:3rem 0 0;padding-top:1rem;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+</style></head>
+<body>
+<h1>Política de Privacidade — TaxaCerta</h1>
+<p><strong>Versão:</strong> 2026-09-11</p>
+<p><strong>Responsável pelo tratamento:</strong> André Gouveia</p>
+<p><strong>Contacto de privacidade:</strong> privacy@lequant.eu</p>
+<p><strong>URL pública desta política:</strong> https://lequant.eu/taxacerta/privacidade/</p>
+<h2>1. Em resumo</h2>
+<p>A TaxaCerta é uma aplicação local-first, sem conta, publicidade ou seguimento publicitário. As propostas, documentos FINE, simulações, comparações, preferências e restantes dados financeiros ficam, por regra, no dispositivo e são guardados numa base de dados encriptada.</p>
+<p>Há quatro categorias de comunicação externa:</p>
+<ol><li>obtenção de taxas públicas junto do Banco Central Europeu (BCE) e do Banco de Portugal (BPstat);</li><li>validação de compras pela loja de aplicações (Apple ou Google);</li><li>diagnósticos de falhas enviados para a Sentry, apenas quando existe uma configuração de produção e enquanto a opção «Diagnósticos de falhas» estiver ativa;</li><li>uma Avaliação IA solicitada expressamente pelo utilizador, com a enumeração prévia dos dados que vão ser enviados.</li></ol>
+<p>Não vendemos dados, não mostramos anúncios e não usamos os dados para seguimento publicitário entre aplicações ou sites.</p>
+<h2>2. Dados que ficam no dispositivo</h2>
+<p>A TaxaCerta pode guardar localmente propostas e dados do crédito atual, documentos FINE e respetivos rascunhos, rendimento e anos de nascimento indicados nas preferências, simulações, comparações, avaliações recebidas, definições e estado das notificações. Estes dados são usados para executar as funções pedidas pelo utilizador.</p>
+<p>«Definições → Privacidade e dados → Eliminar todos os dados» apaga os dados da base local e renova a chave de encriptação. Esta ação não apaga automaticamente registos que já tenham sido transmitidos a uma loja ou a um prestador externo. O utilizador também pode criar uma cópia de segurança <code>.tcbk</code> protegida por uma palavra-passe; a guarda, transferência e eliminação desse ficheiro ficam sob o seu controlo. As cópias do sistema operativo dependem das definições e regras da Apple ou da Google.</p>
+<h2>3. Comunicações externas</h2>
+<h3>Taxas de mercado</h3>
+<p>A aplicação consulta por HTTPS séries públicas no Data Portal do BCE e no BPstat do Banco de Portugal. O pedido contém apenas a identificação fixa das séries e parâmetros técnicos; não inclui propostas, rendimento, documentos ou outros dados introduzidos pelo utilizador. Como em qualquer ligação de rede, o servidor destinatário recebe os metadados técnicos necessários para a comunicação, incluindo o endereço IP.</p>
+<h3>Compras</h3>
+<p>As compras — o desbloqueio vitalício TaxaCerta Pro (pagamento único) e os packs consumíveis de avaliações IA — são efetuadas e geridas <strong>exclusivamente pela loja de aplicações</strong> — App Store da Apple ou Google Play — sem qualquer processador terceiro. A aplicação pergunta à loja do dispositivo quais os produtos disponíveis e se o desbloqueio Pro pertence à conta, e guarda localmente apenas o resultado dessa resposta (nível gratuito ou Pro) e o saldo de avaliações IA desta instalação (um registo local, encriptado, que nunca sai do dispositivo). A Apple ou a Google tratam o pagamento e o recibo segundo as políticas da respetiva loja; a TaxaCerta não recebe o número do cartão ou da conta bancária, e nenhuma proposta, simulação, rendimento ou documento FINE é enviado para a loja.</p>
+<h3>Diagnósticos de falhas</h3>
+<p>Quando a compilação inclui uma configuração Sentry e a opção de diagnósticos está ativa, podem ser enviados o tipo e mensagem técnica da falha, stack trace, breadcrumbs técnicos e contexto da aplicação, sistema operativo e modelo do dispositivo. O código desativa o envio predefinido de dados pessoais, não define uma identidade de utilizador e reduz exceções da base de dados a tipo e código para não enviar instruções SQL, caminhos ou valores financeiros. O utilizador pode interromper imediatamente novos envios em «Definições → Privacidade e dados → Diagnósticos de falhas».</p>
+<h3>Avaliação IA</h3>
+<p>A Avaliação IA é opcional e só é pedida depois de uma divulgação específica. O pedido pode incluir prioridades normalizadas, nomes comerciais dos bancos, pontuações e agregados financeiros em euros ou percentagens, incluindo contrapropostas calculadas no dispositivo. Não inclui nome da pessoa, email, identificador de dispositivo, rendimento, documento FINE, UUID interno, anos de nascimento ou idades.</p>
+<p>O pedido segue por HTTPS para o proxy da TaxaCerta. O proxy usa o endereço IP transitoriamente em memória para limitar abusos e, segundo o código revisto, não regista o IP nem o conteúdo do pedido ou da resposta. Regista apenas metadados operacionais como estado, latência, tamanho, versão do esquema, tipo de pedido, fornecedor e contagem de tokens quando disponível. O proxy envia o conteúdo enumerado ao(s) fornecedor(es) de IA configurado(s) no momento. A lista efetiva, região e regras de conservação aplicáveis constam da tabela do ponto 4.</p>
+<h2>4. Prestadores e conservação</h2>
+<div class="tw"><table><thead><tr><th>Prestador</th><th>Finalidade</th><th>Dados</th><th>Conservação / região confirmada</th></tr></thead><tbody>
+<tr><td>Sentry</td><td>Diagnóstico de falhas</td><td>Evento de falha e contexto técnico, sem identidade definida pela app</td><td>Armazenamento na <strong>União Europeia (Frankfurt, Alemanha)</strong>. Retenção de <strong>30 dias</strong> para eventos de erro. <strong>O armazenamento de endereços IP está DESATIVADO</strong> ao nível da organização; os filtros de dados sensíveis predefinidos e os adicionais estão ativos. O acesso está limitado ao responsável pelo tratamento. A Sentry é uma sociedade norte-americana: as transferências fora do EEE, quando aplicáveis, assentam nas Cláusulas Contratuais-Tipo</td></tr>
+<tr><td>Scaleway (Serverless Containers, <code>fr-par</code>, França)</td><td>Encaminhamento e proteção contra abuso</td><td>Pedido IA, IP transitório e metadados operacionais sem conteúdo</td><td>Alojamento na União Europeia (França). Os registos operacionais do proxy não contêm o endereço IP do utilizador nem o conteúdo do pedido ou da resposta; ficam retidos 7 dias na plataforma de observabilidade e são depois eliminados</td></tr>
+<tr><td>Mistral AI (sociedade francesa, sede em Paris)</td><td>Geração da avaliação</td><td>Prompt construído a partir do pedido IA e resposta</td><td>Único fornecedor de IA configurado: se o modelo principal falhar, responde um segundo modelo da própria Mistral — não existe fallback para outro prestador. <strong>Os dados enviados NÃO são utilizados para treino de modelos:</strong> a opção correspondente está desativada na conta. Nos termos do Adendo de Proteção de Dados da Mistral, os dados pessoais são eliminados ou devolvidos após a cessação do serviço e deixam de estar acessíveis decorridos 30 dias sobre o fim do acesso. Pedidos de eliminação seguem o contacto de privacidade acima</td></tr>
+</tbody></table></div>
+<p>Os dados locais permanecem até o utilizador os eliminar, substituir ou desinstalar a aplicação, sujeito a eventuais cópias de segurança do sistema operativo. A conservação por prestadores externos segue a configuração e os termos confirmados na tabela. Pedidos de apagamento externo usam o contacto de privacidade acima e podem exigir os elementos técnicos estritamente necessários para localizar o registo pseudónimo.</p>
+<h2>5. Fundamento, escolhas e direitos</h2>
+<p>As taxas de mercado e a validação de compras são necessárias para as funções pedidas; a Avaliação IA resulta de uma ação expressa; e os diagnósticos podem ser desativados sem impedir a utilização da aplicação.</p>
+<p>Pelo contacto indicado no início, o utilizador pode pedir informação, acesso, retificação, apagamento, limitação ou oposição quando esses direitos forem aplicáveis. Também pode apresentar reclamação à Comissão Nacional de Proteção de Dados (CNPD). A resposta e o alcance de cada direito dependem dos dados que existam e das obrigações legais aplicáveis.</p>
+<h2>6. Transferências, segurança e alterações</h2>
+<p>As comunicações controladas pela aplicação usam HTTPS. Os dados locais são encriptados e a chave é guardada pelo mecanismo seguro da plataforma. Alguns prestadores podem tratar dados fora do Espaço Económico Europeu; as salvaguardas contratuais aplicáveis constam da tabela do ponto 4.</p>
+<p>Esta política será atualizada se mudar um prestador, payload, sistema de logs, modelo de conta ou regra de conservação. A data e versão no topo identificam a revisão aplicável.</p>
+<h2>7. Contacto</h2>
+<p>Questões ou pedidos de privacidade: <strong>privacy@lequant.eu</strong>.</p>
+<footer><a href="/">Lequant</a></footer>
+</body>
+</html>
