@@ -106,6 +106,9 @@ footer a{color:var(--muted)}
   var full=makePaths(1000), drawn=[];
   for(var i=0;i<full.paths.length;i+=8) drawn.push(full.paths[i]);
   var phases=drawn.map(function(){return Math.random()});
+  var vStride=0, vT=T, vPaths=drawn, vMed=full.med;
+  function sample(a,k){var out=[];for(var i=0;i<a.length;i+=k)out.push(a[i]);if((a.length-1)%k)out.push(a[a.length-1]);return out}
+  function setView(k){vStride=k;vPaths=drawn.map(function(p){return sample(p,k)});vMed=sample(full.med,k);vT=vMed.length}
 
   var mouse={x:-999,y:-999,px:-999,py:-999,s:0,target:0}, wx=0, wy=0;
   addEventListener("pointermove",function(e){
@@ -126,12 +129,21 @@ footer a{color:var(--muted)}
   function draw(t){
     var f=fit(); if(!f.w) return;
     var ctx=f.ctx,w=f.w,h=f.h;
-    var X=function(i){return 6+i/(T-1)*(w-12)}, Y=function(v){return h-PAD-(v-VMIN)/(VMAX-VMIN)*(h-2*PAD)};
+    // Fewer, longer steps on narrow screens: the same paths keep the same
+    // shape as on desktop instead of turning into dense noise.
+    var stride=w<720?Math.max(1,Math.round(8/((w-12)/(full.med.length-1)))):1;
+    if(stride!==vStride) setView(stride);
+    var T=vT, paths=vPaths, med=vMed, TAIL=Math.max(6,Math.round(18/stride));
+    // On narrow (portrait) screens keep the chart's landscape proportions in a
+    // centred band, so the fan reads as the same fan starting at the left edge
+    // instead of a tall, zoomed-in crop.
+    var ch=w<720?Math.min(h,Math.max(w*0.85,260)):h, top=(h-ch)/2;
+    var X=function(i){return 6+i/(T-1)*(w-12)}, Y=function(v){return top+ch-PAD-(v-VMIN)/(VMAX-VMIN)*(ch-2*PAD)};
     ctx.lineWidth=0.6;ctx.strokeStyle="rgba(20,24,31,.045)";
-    drawn.forEach(function(p){ctx.beginPath();for(var i=0;i<T;i++){if(i)ctx.lineTo(X(i),Y(p[i]));else ctx.moveTo(X(0),Y(p[0]))}ctx.stroke()});
+    paths.forEach(function(p){ctx.beginPath();for(var i=0;i<T;i++){if(i)ctx.lineTo(X(i),Y(p[i]));else ctx.moveTo(X(0),Y(p[0]))}ctx.stroke()});
     var push=FORCE*mouse.s;
     ctx.save();ctx.lineWidth=1.1;ctx.lineJoin="round";ctx.lineCap="round";
-    drawn.forEach(function(p,j){
+    paths.forEach(function(p,j){
       var hn=reduced?(0.2+phases[j]*0.6):((t/CYCLE+phases[j])%1), head=hn*(T-1);
       var h0=Math.floor(head),fr=head-h0,s0=h0-TAIL,b0=s0+1>0?s0+1:0;
       ctx.strokeStyle="rgba(47,92,143,.32)";ctx.beginPath();
@@ -143,7 +155,7 @@ footer a{color:var(--muted)}
     });
     ctx.restore();
     ctx.lineWidth=1.5;ctx.strokeStyle="rgba(47,92,143,.5)";ctx.beginPath();
-    for(var k=0;k<T;k++){if(k)ctx.lineTo(X(k),Y(full.med[k]));else ctx.moveTo(X(0),Y(full.med[0]))}
+    for(var k=0;k<T;k++){if(k)ctx.lineTo(X(k),Y(med[k]));else ctx.moveTo(X(0),Y(med[0]))}
     ctx.stroke();
   }
   if(reduced){ draw(0); addEventListener("resize",function(){draw(0)}); return; }
