@@ -1,94 +1,425 @@
 <!doctype html>
 <html lang="pt-PT">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TaxaCerta</title>
-<meta name="description" content="Comparar propostas de crédito habitação em Portugal, com simulações de Euribor calculadas no dispositivo.">
+<title>TaxaCerta — Crédito habitação sem palpites</title>
+<meta name="description" content="Compare propostas de crédito habitação pelo que custam em milhares de cenários de Euribor. Simule amortizações e teste o pior cenário. Cálculos no telemóvel, sem conta nem anúncios.">
+<meta name="theme-color" content="#00804b">
+<link rel="icon" type="image/png" href="/taxacerta/img/icone.png">
+<link rel="apple-touch-icon" href="/taxacerta/img/apple-touch-icon.png">
+<meta name="apple-itunes-app" content="app-id=6801580525">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:title" content="TaxaCerta — Crédito habitação sem palpites">
+<meta property="og:description" content="O banco mostra-lhe uma taxa. A TaxaCerta mostra-lhe o leque: milhares de cenários de Euribor, calculados no seu telemóvel.">
+<meta property="og:image" content="https://lequant.eu/taxacerta/img/partilha.png">
+<meta property="og:url" content="https://lequant.eu/taxacerta/">
+<meta name="twitter:card" content="summary_large_image">
 <style>
-:root{color-scheme:light dark;--bg:#fff;--fg:#14181c;--muted:#5b666f;--line:#d8dde2;--head:#f7f9fa;--code:#f2f4f6;--link:#00754a}
-@media (prefers-color-scheme:dark){:root{--bg:#14181c;--fg:#e8edf1;--muted:#9aa6b0;--line:#2f3841;--head:#1b2126;--code:#1b2126;--link:#4fbb8b}}
-html{background:var(--bg)}
-body{font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:44rem;margin:3rem auto;padding:0 1.25rem;background:var(--bg);color:var(--fg)}
-h1{font-size:1.6rem;line-height:1.3;margin:0 0 1.5rem}
-h2{font-size:1.2rem;margin:2.5rem 0 .75rem}
-h3{font-size:1rem;margin:1.75rem 0 .5rem}
-p{margin:0 0 1rem}
-ol{margin:0 0 1rem;padding-left:1.25rem}
-li{margin:0 0 .35rem}
-code{font-size:.9em;background:var(--code);padding:.1em .3em;border-radius:3px}
-.tw{overflow-x:auto;margin:0 0 1rem}
-table{border-collapse:collapse;font-size:.9rem;min-width:40rem}
-th,td{border:1px solid var(--line);padding:.5rem .6rem;text-align:left;vertical-align:top}
-th{background:var(--head)}
-a{color:var(--link)}
-footer{margin:3rem 0 0;padding-top:1rem;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+:root{
+  color-scheme:light dark;
+  --bg:#ffffff;--bg-soft:#f4f7f5;--fg:#14181c;--muted:#5b666f;--line:#dfe4e1;
+  --brand:#00804b;--brand-deep:#005c37;--brand-tint:#e3f1ea;--on-brand:#ffffff;
+  --warn:#a5700f;--card:#ffffff;--shadow:0 30px 60px -25px rgba(10,40,25,.35);
+  --frame:#15191c;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#101413;--bg-soft:#161c1a;--fg:#e8edf1;--muted:#9aa6b0;--line:#26302c;
+  --brand:#3fb47f;--brand-deep:#7fd3aa;--brand-tint:#173326;--on-brand:#06140d;
+  --warn:#e0b35a;--card:#161c1a;--shadow:0 30px 60px -25px rgba(0,0,0,.7);
+  --frame:#000000;
+}}
+*{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{margin:0;font:17px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;background:var(--bg);color:var(--fg)}
+a{color:var(--brand)}
+img{display:block;max-width:100%}
+main{overflow-x:clip}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;padding-block:1.1rem}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:1.1rem;color:var(--fg);text-decoration:none}
+.brand img{width:34px;height:34px;border-radius:9px}
+.top nav a{color:var(--muted);text-decoration:none;font-size:.95rem;margin-left:1.2rem}
+.top nav a:hover{color:var(--fg)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;padding-block:2.5rem 4.5rem}
+.eyebrow{display:inline-block;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);background:var(--brand-tint);padding:.3rem .7rem;border-radius:999px;margin-bottom:1.2rem}
+h1{font-size:clamp(2.3rem,5.2vw,3.6rem);line-height:1.08;letter-spacing:-.025em;margin:0 0 1.2rem}
+h1 em{font-style:normal;color:var(--brand)}
+.lead{font-size:1.2rem;color:var(--muted);margin:0 0 2rem;max-width:32rem}
+.ctas{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
+.store{display:inline-flex;align-items:center;gap:.6rem;padding:0 1.1rem 0 .9rem;border-radius:10px;text-decoration:none;line-height:1.15;height:54px}
+.store small{display:block;font-size:.72rem;opacity:.85}
+.store strong{display:block;font-size:1.1rem;font-weight:600}
+.store svg{width:26px;height:26px;flex:none}
+.badge{display:inline-block;line-height:0;transition:transform .15s ease}
+.badge:hover{transform:translateY(-2px)}
+.badge img{height:54px;width:auto}
+.store-android{box-sizing:border-box;width:162px;height:54px;gap:7px;padding:0 8px 0 9px;border-radius:9px;background:#000;color:#fff;border:1px solid #a6a6a6;font:inherit;cursor:pointer;text-align:left;transition:transform .15s ease,box-shadow .15s ease}
+.store-android:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px rgba(61,220,132,.55)}
+.store-android svg{width:22px;height:22px;color:#3ddc84}
+.store-android small{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.store-android small i{width:6px;height:6px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 0 rgba(61,220,132,.6);animation:pulse 2s ease-out infinite}
+.store-android strong{font-size:21px;font-weight:600;letter-spacing:-.02em;line-height:1.05;white-space:nowrap}
+@keyframes pulse{70%{box-shadow:0 0 0 5px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+@media (prefers-color-scheme:dark){.store-android{background:#fff;color:#000;border-color:#fff}}
+.sheet{border:0;padding:0;max-width:30rem;width:calc(100% - 2rem);border-radius:24px;background:var(--bg);color:var(--fg);box-shadow:0 40px 80px -20px rgba(0,0,0,.45)}
+.sheet::backdrop{background:rgba(8,20,14,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.sheet[open]{animation:pop .28s cubic-bezier(.2,.8,.2,1)}
+.sheet[open]::backdrop{animation:fade .28s ease}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}}
+@keyframes fade{from{opacity:0}}
+.sheet-body{padding:1.8rem 1.6rem 1.4rem}
+.sheet h3{font-size:1.35rem;letter-spacing:-.01em;margin:0 0 .5rem}
+.sheet p{color:var(--muted);margin:0 0 1.2rem;font-size:.97rem}
+.steps{list-style:none;margin:0 0 1.2rem;padding:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:0 0 1.1rem 2.6rem}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-weight:700;font-size:.9rem;display:grid;place-items:center}
+.steps strong{display:block}
+.steps span{display:block;color:var(--muted);font-size:.93rem;margin:.1rem 0 .55rem}
+.btn{display:inline-block;background:var(--brand);color:var(--on-brand);text-decoration:none;font-weight:600;font-size:.93rem;padding:.5rem 1rem;border-radius:999px}
+.btn:hover{filter:brightness(1.08)}
+.sheet .fine{font-size:.82rem;margin:0}
+.sheet-close{position:absolute;top:.9rem;right:.9rem;width:2.2rem;height:2.2rem;border-radius:50%;border:0;background:var(--bg-soft);color:var(--muted);font-size:1.3rem;line-height:1;cursor:pointer}
+@media (max-width:560px){.sheet{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0}}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:1.8rem 0 0;padding:0;list-style:none;font-size:.92rem;color:var(--muted)}
+.chips li{display:flex;align-items:center;gap:.4rem}
+.chips li::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--brand)}
+
+/* phone frame */
+.phone{position:relative;width:min(290px,74vw);margin:0 auto;padding:10px;border-radius:44px;background:var(--frame);box-shadow:var(--shadow)}
+.phone video{display:block;border-radius:34px;width:100%;height:auto;aspect-ratio:540/1112;object-fit:cover;object-position:top;background:#fff}
+.bgfan{position:fixed;left:50%;top:50%;width:min(1400px,160vw);height:auto;transform:translate(-50%,-50%);color:var(--brand);opacity:.09;z-index:0;pointer-events:none}
+body>header,body>main,body>footer{position:relative;z-index:1}
+.bgfan .ray{stroke-dasharray:1 1;stroke-dashoffset:1}
+.hero-art{position:relative;isolation:isolate}
+
+/* quote band */
+.band{background:var(--brand);color:var(--on-brand);padding:3.5rem 0;text-align:center}
+.band p{font-size:clamp(1.4rem,3.2vw,2.1rem);line-height:1.3;font-weight:650;letter-spacing:-.015em;margin:0 auto;max-width:44rem}
+.band span{opacity:.75}
+
+/* features */
+.features{padding-block:5rem 2rem}
+.section-title{font-size:clamp(1.7rem,3.5vw,2.4rem);letter-spacing:-.02em;line-height:1.15;margin:0 0 .6rem;text-align:center}
+.section-sub{color:var(--muted);text-align:center;margin:0 auto 4rem;max-width:36rem}
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin:0 0 6rem}
+.feature:nth-child(even) .feature-art{order:-1}
+.feature h3{font-size:1.6rem;line-height:1.2;letter-spacing:-.015em;margin:.4rem 0 .8rem}
+.feature p{color:var(--muted);margin:0 0 1rem}
+.kicker{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+.feature ul{margin:0;padding:0;list-style:none}
+.feature li{position:relative;padding-left:1.5rem;margin:0 0 .45rem}
+.feature li::before{content:"";position:absolute;left:0;top:.62em;width:.75rem;height:2px;background:var(--brand)}
+.feature-art{background:var(--bg-soft);border-radius:28px;padding:2.5rem 1rem}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* small grid */
+.more{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin:0 0 5rem}
+.more div{border:1px solid var(--line);border-radius:20px;padding:1.4rem 1.4rem 1.2rem;background:var(--card)}
+.more h4{margin:0 0 .4rem;font-size:1.05rem}
+.more p{margin:0;color:var(--muted);font-size:.95rem}
+
+/* privacy */
+.privacy{background:var(--bg-soft);padding:4.5rem 0}
+.privacy .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start}
+.privacy h2{font-size:clamp(1.7rem,3.5vw,2.4rem);letter-spacing:-.02em;line-height:1.15;margin:0 0 1rem}
+.privacy p{color:var(--muted);margin:0 0 1rem}
+.checks{list-style:none;margin:0;padding:0}
+.checks li{display:flex;gap:.8rem;padding:1rem 0;border-bottom:1px solid var(--line)}
+.checks li:last-child{border-bottom:0}
+.checks svg{flex:none;width:22px;height:22px;color:var(--brand);margin-top:.15rem}
+.checks .note svg{color:var(--warn)}
+.checks strong{display:block}
+.checks span{color:var(--muted);font-size:.95rem}
+
+/* pricing */
+.pricing{padding-block:5rem}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;max-width:52rem;margin:0 auto}
+.plan{border:1px solid var(--line);border-radius:24px;padding:2rem;background:var(--card)}
+.plan.pro{border:2px solid var(--brand);position:relative}
+.plan.pro::after{content:"Pagamento único";position:absolute;top:-.8rem;right:1.5rem;background:var(--brand);color:var(--on-brand);font-size:.78rem;font-weight:700;padding:.2rem .7rem;border-radius:999px}
+.plan h3{margin:0 0 .3rem;font-size:1.3rem}
+.plan .tag{color:var(--muted);margin:0 0 1.2rem;font-size:.95rem}
+.plan ul{margin:0;padding:0;list-style:none}
+.plan li{padding:.45rem 0;border-top:1px solid var(--line);font-size:.97rem}
+.plan li:first-child{border-top:0}
+
+/* final cta */
+.final{text-align:center;padding-block:1rem 5rem}
+.final .ctas{justify-content:center}
+.final h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;line-height:1.15;margin:0 0 1.6rem}
+
+footer{border-top:1px solid var(--line);padding:2rem 0 3rem;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+footer a{color:var(--muted)}
+footer p{margin:0}
+.disclaimer{max-width:40rem}
+
+@media (max-width:860px){
+  .hero,.feature,.privacy .grid,.plans{grid-template-columns:1fr}
+  .hero{gap:3rem;padding-top:1.5rem}
+  .feature{gap:2rem;margin-bottom:4.5rem}
+  .feature:nth-child(even) .feature-art{order:0}
+  .more{grid-template-columns:1fr}
+  .top nav a:not(:last-child){display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .badge,.store-android{transition:none}
+  .store-android small i{animation:none}
+  .sheet[open],.sheet[open]::backdrop{animation:none}
+}
 </style></head>
 <body>
-<h1>TaxaCerta</h1>
+<svg class="bgfan" viewBox="28 8 62 80" fill="none" aria-hidden="true">
+  <g stroke="currentColor" stroke-linecap="round">
+    <path class="ray" pathLength="1" d="M31 47.75 C 48 43.75, 66 29, 86 13.75" stroke-width="1.6" opacity=".45"/>
+    <path class="ray" pathLength="1" d="M31 47.75 C 48 45.75, 66 38, 86 30.75" stroke-width="1.6" opacity=".7"/>
+    <path class="ray" pathLength="1" d="M31 47.75 C 48 47.75, 67 47.75, 86 47.75" stroke-width="2.1"/>
+    <path class="ray" pathLength="1" d="M31 47.75 C 48 49.75, 66 57.5, 86 64.75" stroke-width="1.6" opacity=".7"/>
+    <path class="ray" pathLength="1" d="M31 47.75 C 48 51.75, 66 66.5, 86 81.75" stroke-width="1.6" opacity=".45"/>
+  </g>
+</svg>
 
-<p>Comparar propostas de crédito habitação pelo que custam ao longo de vinte
-ou trinta anos — não pela taxa do primeiro mês.</p>
+<header class="wrap top">
+  <a class="brand" href="/taxacerta/"><img src="/taxacerta/img/icone.png" alt="" width="34" height="34">TaxaCerta</a>
+  <nav><a href="#funcionalidades">Funcionalidades</a><a href="#privacidade">Privacidade</a><a href="#precos">Preços</a><a href="/taxacerta/suporte/">Suporte</a></nav>
+</header>
 
-<p>Registe as propostas que recebeu dos bancos, à mão ou importando a FINE em
-PDF. A aplicação simula trajetórias possíveis da Euribor no próprio
-dispositivo, a partir de dados do Banco Central Europeu e do Banco de
-Portugal, e mostra o que cada proposta faz à prestação, ao custo total e ao
-risco, ano a ano.</p>
+<main>
+<section class="wrap hero">
+  <div>
+    <span class="eyebrow">Crédito habitação · Portugal</span>
+    <h1>O banco mostra-lhe uma taxa. <em>Nós mostramos-lhe o leque.</em></h1>
+    <p class="lead">Compare propostas de crédito habitação pelo que custam ao longo de vinte ou trinta anos, em milhares de cenários de Euribor, e não pela prestação do primeiro mês.</p>
+    <div class="ctas">
+      <a class="badge js-appstore" href="https://apps.apple.com/pt/app/taxacerta/id6801580525?pt=129271108&amp;ct=site&amp;mt=8">
+        <picture><source srcset="/taxacerta/img/app-store-branco.svg" media="(prefers-color-scheme: dark)"><img src="/taxacerta/img/app-store-preto.svg" width="162" height="54" alt="Descarregar na App Store"></picture>
+      </a>
+      <button class="store store-android" type="button" data-sheet="android-beta" aria-label="Testes abertos: experimentar a TaxaCerta para Android no Google Play">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+        <span><small><i></i>Testes abertos</small><strong>Android</strong></span>
+      </button>
+    </div>
+    <ul class="chips">
+      <li>Dados do BCE e do Banco de Portugal</li>
+      <li>Cálculos no telemóvel</li>
+      <li>Sem conta nem anúncios</li>
+    </ul>
+  </div>
+  <div class="hero-art">
+    <div class="phone"><video class="clip" muted playsinline preload="none" poster="/taxacerta/clips/leque.webp" width="540" height="1112" aria-label="Ecrã da TaxaCerta: a prestação daqui a 10 anos entre 586 € no cenário bom e 812 € no cenário mau."><source src="/taxacerta/clips/leque.mp4" type="video/mp4"></video></div>
+  </div>
+</section>
 
-<h2>O que a aplicação faz</h2>
+<section class="band">
+  <div class="wrap"><p>O futuro não é uma linha. É um leque. <span>Veja-o antes de assinar.</span></p></div>
+</section>
 
-<ul>
-<li><strong>Importa a FINE</strong> — o PDF do banco é lido no dispositivo e
-os campos ficam para revisão.</li>
-<li><strong>Simula cenários</strong> — mil trajetórias de Euribor por
-simulação (até cinco mil na versão Pro); a prestação mediana, as bandas de
-risco e o custo total, no cenário bom, no mau e no meio.</li>
-<li><strong>Compara segundo os seus critérios</strong> — responde a um
-questionário sobre o que lhe importa e cada proposta recebe uma pontuação,
-com a explicação de porquê.</li>
-<li><strong>Ensaia amortizações antecipadas</strong> — planos mensais, anuais
-ou de uma só vez, com a poupança já líquida da comissão de reembolso.</li>
-<li><strong>Acompanha o crédito que já tem</strong> — capital em dívida,
-prestação e prazo restante, e a comparação com propostas de
-refinanciamento.</li>
-<li><strong>Avaliação por IA</strong> — um parecer escrito sobre as suas
-propostas, com a evidência que o sustenta e o que pedir a cada banco.</li>
-</ul>
+<section class="wrap features" id="funcionalidades">
+  <h2 class="section-title">Tudo o que o banco não lhe mostra</h2>
+  <p class="section-sub">A FINE dá-lhe um número. A TaxaCerta mostra-lhe o que acontece a esse número quando a Euribor muda, quando amortiza e quando compara com outras propostas.</p>
 
-<h2>Gratuito e Pro</h2>
+  <div class="feature-list">
+    <article class="feature reveal">
+      <div>
+        <span class="kicker">Cenários de Euribor</span>
+        <h3>Mil futuros possíveis, não um palpite</h3>
+        <p>Cada simulação gera mil trajetórias de Euribor (até cinco mil na versão Pro) a partir de dados do Banco Central Europeu e mostra a prestação e o custo total no cenário favorável, no mediano e no adverso.</p>
+        <ul><li>Bandas de risco ano a ano</li><li>Custo total em cada cenário</li><li>Taxa de esforço no pior mês</li></ul>
+      </div>
+      <div class="feature-art"><div class="phone"><video class="clip" muted playsinline preload="none" poster="/taxacerta/clips/cenarios.webp" width="540" height="1112" aria-label="Uma simulação a correr: mil trajetórias de Euribor desenham-se no gráfico e assentam nas bandas de 25–75% e 5–95%; depois, desliza-se entre as propostas."><source src="/taxacerta/clips/cenarios.mp4" type="video/mp4"></video></div></div>
+    </article>
 
-<p>Gratuito: até três propostas guardadas, dez simulações guardadas, o modelo
-de taxa de juro predefinido e três avaliações IA para experimentar.</p>
+    <article class="feature reveal">
+      <div>
+        <span class="kicker">Testes de stress · Pro</span>
+        <h3>E se a Euribor disparar?</h3>
+        <p>Aplique um choque às trajetórias simuladas e veja o que acontece à prestação, ao custo total e à taxa de esforço. Use os cenários prontos ou desenhe o seu, ponto a ponto.</p>
+        <ul><li>Choque de supervisão (+1,5 pp)</li><li>Subida rápida e forte, como em 2022–23</li><li>Pico e alívio, como em 2008</li></ul>
+      </div>
+      <div class="feature-art"><div class="phone"><video class="clip" muted playsinline preload="none" poster="/taxacerta/clips/stress.webp" width="540" height="1112" aria-label="Três testes de stress seguidos — subida rápida e forte, pico e alívio, choque de supervisão — cada um com as trajetórias a desenhar-se e a prestação a subir."><source src="/taxacerta/clips/stress.mp4" type="video/mp4"></video></div></div>
+    </article>
 
-<p>TaxaCerta Pro, pagamento único: propostas e simulações ilimitadas, escolha
-e afinação dos modelos de taxa de juro, cenários de stress, contrapropostas
-ao banco, estratégias de amortização, comparação com refinanciamento, e cem
-avaliações IA incluídas. Packs de vinte avaliações IA à parte.</p>
+    <article class="feature reveal">
+      <div>
+        <span class="kicker">Comparação e negociação</span>
+        <h3>Saiba exatamente o que pedir ao banco</h3>
+        <p>Cada proposta recebe uma pontuação segundo o que lhe importa. Depois, a TaxaCerta mostra onde cada banco pode negociar: o spread a pedir, quanto poupa e se a proposta passa a ser a melhor. No exemplo, baixar o spread de 0,95% para 0,90% poupa 2 044 € e põe a Caixa Atlântico em primeiro lugar.</p>
+        <ul><li>Pontuação de 0 a 100, segundo as suas prioridades</li><li>Contraproposta: o que pedir e quanto poupa (Pro)</li><li>Pedidos plausíveis, com base no que outros bancos já praticam</li></ul>
+      </div>
+      <div class="feature-art"><div class="phone"><video class="clip" muted playsinline preload="none" poster="/taxacerta/clips/comparacao.webp" width="540" height="1112" aria-label="Comparação de três propostas; a contraproposta para a Caixa Atlântico (spread de 0,95% para 0,90%, poupa 2 044 €) é aplicada e a Caixa Atlântico passa a melhor proposta."><source src="/taxacerta/clips/comparacao.mp4" type="video/mp4"></video></div></div>
+    </article>
 
-<h2>Privacidade</h2>
+    <article class="feature reveal">
+      <div>
+        <span class="kicker">Amortizações</span>
+        <h3>Veja o que poupa antes de amortizar</h3>
+        <p>Crie planos de amortização mensais, anuais ou de uma só vez e compare a prestação com e sem plano, ao longo de todo o prazo. A poupança já vem líquida da comissão de reembolso antecipado.</p>
+        <ul><li>Com e sem plano, no mesmo gráfico</li><li>Poupança estimada e redução do risco de taxa</li><li>Planos sugeridos pela app, num toque</li></ul>
+      </div>
+      <div class="feature-art"><div class="phone"><video class="clip" muted playsinline preload="none" poster="/taxacerta/clips/amortizar.webp" width="540" height="1112" aria-label="Ecrã Amortizações antecipadas: a app sugere planos de +50, +100 e +200 € por mês e mostra a prestação com e sem plano ao longo de 30 anos."><source src="/taxacerta/clips/amortizar.mp4" type="video/mp4"></video></div></div>
+    </article>
 
-<p>Todos os cálculos correm no dispositivo. Sem contas, sem registo, sem
-anúncios, sem seguimento publicitário. As propostas, as simulações e o
-rendimento ficam encriptados no telemóvel.</p>
+    <article class="feature reveal">
+      <div>
+        <span class="kicker">Avaliação IA</span>
+        <h3>Um parecer escrito sobre as suas propostas</h3>
+        <p>Peça uma avaliação e recebe um texto claro: qual a proposta mais forte, porquê, o que pedir a cada banco e a que riscos estar atento, sempre com os números que o sustentam.</p>
+        <ul><li>Alavancas de negociação por banco</li><li>Sensibilidade à Euribor explicada</li><li>Só quando a pede</li></ul>
+      </div>
+      <div class="feature-art"><div class="phone"><video class="clip" muted playsinline preload="none" poster="/taxacerta/clips/avaliacao-ia.webp" width="540" height="1112" aria-label="Avaliação IA a indicar a melhor proposta, alavancas de negociação e sensibilidade à Euribor."><source src="/taxacerta/clips/avaliacao-ia.mp4" type="video/mp4"></video></div></div>
+    </article>
 
-<p>A única informação do crédito que sai do dispositivo é a Avaliação IA: só
-quando a pede, sem identificadores pessoais diretos, e processada dentro da
-União Europeia. A aplicação também obtém as taxas Euribor junto do BCE e do
-Banco de Portugal, confirma as compras com a loja de aplicações e, salvo se o
-desativar nas Definições, envia diagnósticos de falhas sem valores
-financeiros. Os detalhes estão na <a href="/taxacerta/privacidade/">política
-de privacidade</a>.</p>
+    <article class="feature reveal">
+      <div>
+        <span class="kicker">O meu crédito</span>
+        <h3>Já tem crédito? Saiba se vale a pena mudar</h3>
+        <p>Registe o crédito que já tem e acompanhe o capital em dívida, a prestação e o prazo restante. Compare o seu spread com a média do mercado e com propostas de refinanciamento.</p>
+        <ul><li>Comparação com a média do Banco de Portugal</li><li>Poupança ao refinanciar</li><li>Custo total restante, por cenário</li></ul>
+      </div>
+      <div class="feature-art"><div class="phone"><video class="clip" muted playsinline preload="none" poster="/taxacerta/clips/credito.webp" width="540" height="1112" aria-label="Ecrã do crédito atual com prestação mediana de 798 € e comparação com a média de mercado."><source src="/taxacerta/clips/credito.mp4" type="video/mp4"></video></div></div>
+    </article>
+  </div>
 
-<h2>Ajuda</h2>
+  <div class="more">
+    <div class="reveal"><h4>Importa a FINE</h4><p>Leia o PDF do banco diretamente no telemóvel. Os campos ficam preenchidos para rever.</p></div>
+    <div class="reveal"><h4>Cada ecrã explicado</h4><p>Toque no ponto de interrogação de qualquer ecrã e veja o que ele mostra e como usar.</p></div>
+    <div class="reveal"><h4>Modelos de taxa</h4><p>Escolha e afine o modelo de taxa de juro que gera os cenários (Pro).</p></div>
+  </div>
+</section>
 
-<p>Dúvidas ou problemas: <a href="/taxacerta/suporte/">página de suporte</a>,
-ou directamente para <strong><a href="mailto:support@lequant.eu">support@lequant.eu</a></strong>.</p>
+<section class="privacy" id="privacidade">
+  <div class="wrap grid">
+    <div>
+      <h2>A privacidade vem primeiro</h2>
+      <p>Os seus rendimentos e as propostas dos bancos são assuntos seus. A TaxaCerta foi feita para funcionar sem saber quem é.</p>
+      <p><a href="/taxacerta/privacidade/">Ler a política de privacidade →</a></p>
+    </div>
+    <ul class="checks">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><strong>Cálculos no dispositivo</strong><span>Todas as simulações correm no seu telemóvel.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><strong>Sem conta, sem registo, sem anúncios</strong><span>Nem seguimento publicitário.</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><strong>Dados encriptados</strong><span>Propostas, simulações e rendimento ficam encriptados no telemóvel.</span></div></li>
+      <li class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg><div><strong>A única exceção: a Avaliação IA</strong><span>Só quando a pede, sem identificadores pessoais diretos e processada na União Europeia.</span></div></li>
+    </ul>
+  </div>
+</section>
 
-<p>Esta aplicação é uma ferramenta de apoio à decisão e não constitui
-aconselhamento financeiro. Confirme sempre os valores na FINE do banco.</p>
+<section class="wrap pricing" id="precos">
+  <h2 class="section-title">Gratuito para começar</h2>
+  <p class="section-sub">Experimente com as suas propostas reais. Se precisar de mais, a versão Pro paga-se uma vez e é sua.</p>
+  <div class="plans">
+    <div class="plan reveal">
+      <h3>Gratuito</h3>
+      <p class="tag">Para comparar as primeiras propostas</p>
+      <ul><li>Até três propostas guardadas</li><li>Dez simulações guardadas</li><li>Modelo de taxa de juro predefinido</li><li>Três avaliações IA para experimentar</li></ul>
+    </div>
+    <div class="plan pro reveal">
+      <h3>TaxaCerta Pro</h3>
+      <p class="tag">Para decidir com todos os cenários</p>
+      <ul><li>Propostas e simulações ilimitadas</li><li>Modelos de taxa de juro e cenários de stress</li><li>Contrapropostas ao banco e estratégias de amortização</li><li>Comparação com refinanciamento</li><li>Cem avaliações IA incluídas</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap final">
+  <h2>Antes de assinar, abra o leque.</h2>
+  <div class="ctas">
+    <a class="badge js-appstore" href="https://apps.apple.com/pt/app/taxacerta/id6801580525?pt=129271108&amp;ct=site&amp;mt=8">
+        <picture><source srcset="/taxacerta/img/app-store-branco.svg" media="(prefers-color-scheme: dark)"><img src="/taxacerta/img/app-store-preto.svg" width="162" height="54" alt="Descarregar na App Store"></picture>
+      </a>
+    <button class="store store-android" type="button" data-sheet="android-beta" aria-label="Testes abertos: experimentar a TaxaCerta para Android no Google Play">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+        <span><small><i></i>Testes abertos</small><strong>Android</strong></span>
+      </button>
+  </div>
+</section>
+</main>
+
+<dialog class="sheet" id="android-beta" aria-labelledby="android-beta-title">
+  <button class="sheet-close" type="button" data-close aria-label="Fechar">×</button>
+  <div class="sheet-body">
+    <h3 id="android-beta-title">Testes abertos no Android</h3>
+    <p>A TaxaCerta para Android chega em breve ao Google Play. Entre já, antes do lançamento público, e use a app durante pelo menos 14 dias: é isso que nos permite abri-la a todos.</p>
+    <ol class="steps">
+      <li><strong>Peça para entrar no grupo de testes</strong><span>Com a conta Google do seu telemóvel Android. Aprovamos os pedidos no prazo de um dia e recebe um email quando estiver aprovado.</span><a class="btn" href="https://groups.google.com/g/taxacerta-android-beta" target="_blank" rel="noopener">Pedir para entrar</a></li>
+      <li><strong>Depois da aprovação, aceite o convite no Google Play</strong><span>Na mesma conta Google. Se o link ainda não funcionar, aguarde alguns minutos e tente de novo.</span><a class="btn" href="https://play.google.com/apps/testing/pt.taxacerta.taxacerta" target="_blank" rel="noopener">Aceitar convite</a></li>
+      <li><strong>Instale e experimente</strong><span>Descarregue a TaxaCerta no Google Play e mantenha-se no programa durante 14 dias. Sugestões e problemas: <a href="mailto:support@lequant.eu">support@lequant.eu</a>.</span><a class="btn" href="https://play.google.com/store/apps/details?id=pt.taxacerta.taxacerta" target="_blank" rel="noopener">Abrir no Google Play</a></li>
+    </ol>
+    <p class="fine">Ao entrar no grupo, o seu endereço de email fica visível para nós, apenas para gerir os testes. Pode sair do grupo e do programa a qualquer momento.</p>
+  </div>
+</dialog>
 
 <footer>
-<p><a href="/taxacerta/">TaxaCerta</a> · <a href="/taxacerta/suporte/">Suporte</a> · <a href="/taxacerta/privacidade/">Política de Privacidade</a></p>
-<p>Lequant · André Gouveia</p>
+  <div class="wrap">
+    <p class="disclaimer">A TaxaCerta é uma ferramenta de apoio à decisão e não constitui aconselhamento financeiro. Não somos intermediário de crédito. Confirme sempre os valores na FINE do banco. Ecrãs com valores de exemplo.</p>
+    <p><a href="/taxacerta/suporte/">Suporte</a> · <a href="/taxacerta/privacidade/">Política de Privacidade</a> · <a href="mailto:support@lequant.eu">support@lequant.eu</a><br>Lequant · André Gouveia</p>
+  </div>
 </footer>
+
+<script>
+// Pass the visitor's source (?s=ig / ?s=tt) to the App Store link as a campaign token.
+(function(){
+  try{
+    var s=new URLSearchParams(location.search).get('s');
+    var map={ig:'instagram',tt:'tiktok',yt:'youtube'};
+    var ct=map[s]||(s&&/^[a-z0-9-]{1,40}$/.test(s)?s:'site');
+    document.querySelectorAll('.js-appstore').forEach(function(a){
+      var u=new URL(a.href); u.searchParams.set('pt','129271108'); u.searchParams.set('ct',ct); u.searchParams.set('mt','8'); a.href=u.toString();
+    });
+  }catch(e){}
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{rootMargin:'0px 0px -10% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+
+// Background fan: the lines draw from left to right as the page scrolls.
+(function(){
+  var fan=document.querySelector('.bgfan'); if(!fan) return;
+  var rays=[].slice.call(fan.querySelectorAll('.ray'));
+  function set(v){ rays.forEach(function(r){ r.setAttribute('stroke-dashoffset',(1-v).toFixed(4)); r.style.strokeDashoffset=(1-v).toFixed(4); }); }
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ set(1); return; }
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+    var p=Math.min(1,Math.max(0,scrollY/(max*0.6)));
+    set(0.04+0.96*p);
+  }
+  addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } },{passive:true});
+  addEventListener('resize',update); update();
+})();
+
+// Android beta sheet
+(function(){
+  var d=document.getElementById('android-beta'); if(!d||!d.showModal) return;
+  document.querySelectorAll('[data-sheet="android-beta"]').forEach(function(b){b.addEventListener('click',function(){d.showModal()})});
+  d.querySelector('[data-close]').addEventListener('click',function(){d.close()});
+  d.addEventListener('click',function(e){if(e.target===d) d.close()});
+})();
+
+
+// Feature clips: each plays once as it scrolls into view, then holds its last frame.
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('video.clip'));
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)');
+  if(reduce.matches) return; // poster = final frame
+  vids.forEach(function(v){ v.addEventListener('ended',function(){ v.dataset.done='1'; }); });
+  if(!('IntersectionObserver' in window)){ vids.forEach(function(v){v.preload='auto'}); return; }
+  var warm=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){ var v=e.target; v.preload='auto'; warm.unobserve(v); }
+  })},{rootMargin:'600px 0px'});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    var v=e.target; if(v.dataset.done) return;
+    if(e.isIntersecting){ var p=v.play(); if(p) p.catch(function(){}); } else v.pause();
+  })},{threshold:0.35});
+  vids.forEach(function(v){ warm.observe(v); io.observe(v); });
+})();
+</script>
 </body>
 </html>
