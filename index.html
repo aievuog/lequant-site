@@ -1,14 +1,104 @@
 <!doctype html>
 <html lang="pt-PT">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lequant</title></head>
-<body style="font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:32rem;margin:4rem auto;padding:0 1.25rem">
-<h1>Lequant</h1>
-<p>Documentos públicos das aplicações Lequant.</p>
-<ul>
-<li><a href="/taxacerta/">TaxaCerta</a></li>
-<li><a href="/taxacerta/suporte/">TaxaCerta — Suporte</a></li>
-<li><a href="/taxacerta/privacidade/">TaxaCerta — Política de Privacidade</a></li>
-</ul>
+<title>Lequant</title>
+<meta name="description" content="Lequant: software de decisão financeira feito em Portugal. O futuro não é uma linha. É um leque.">
+<meta name="theme-color" content="#0E6F52">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Lequant">
+<meta property="og:description" content="O futuro não é uma linha. É um leque. Quantifique-o.">
+<meta property="og:image" content="https://lequant.eu/taxacerta/img/partilha.png">
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#ffffff;--bg-soft:#f4f7f5;--fg:#17241e;--muted:#5b666f;--line:#dfe4e1;
+  --brand:#0e6f52;--brand-tint:#e3f1ea;--card:#ffffff;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#101413;--bg-soft:#161c1a;--fg:#e8edf1;--muted:#9aa6b0;--line:#26302c;
+  --brand:#3fb47f;--brand-tint:#173326;--card:#161c1a;
+}}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;font:17px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;background:var(--bg);color:var(--fg)}
+a{color:var(--brand)}
+.wrap{width:100%;max-width:60rem;margin:0 auto;padding:0 1.25rem}
+header{padding:1.4rem 0}
+.logo{display:inline-flex;align-items:center;gap:.65rem;color:var(--fg);text-decoration:none;font-weight:650;font-size:1.35rem;letter-spacing:-.02em}
+.logo svg{width:44px;height:44px;color:var(--brand)}
+main{flex:1;overflow-x:clip}
+.hero{padding-block:4.5rem 3.5rem;position:relative}
+.hero h1{font-size:clamp(2.4rem,6vw,4rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 1.2rem;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--brand)}
+.hero p{font-size:1.2rem;color:var(--muted);max-width:34rem;margin:0}
+.mark{position:absolute;right:-4%;top:50%;width:min(420px,45vw);transform:translateY(-50%);color:var(--brand);opacity:.16;pointer-events:none}
+.mark path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.4s cubic-bezier(.3,.7,.2,1) forwards}
+.mark path:nth-child(3){animation-delay:.1s}
+.mark path:nth-child(2),.mark path:nth-child(4){animation-delay:.25s}
+.mark path:nth-child(1),.mark path:nth-child(5){animation-delay:.4s}
+@keyframes draw{to{stroke-dashoffset:0}}
+h2{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 1rem}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;padding-bottom:4rem}
+.card{border:1px solid var(--line);border-radius:22px;padding:1.6rem;background:var(--card);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.5rem;transition:transform .15s ease,border-color .15s ease}
+a.card:hover{transform:translateY(-3px);border-color:var(--brand)}
+.card .top{display:flex;align-items:center;gap:.8rem}
+.card img{width:52px;height:52px;border-radius:12px}
+.card h3{margin:0;font-size:1.3rem;letter-spacing:-.01em}
+.card p{margin:0;color:var(--muted)}
+.card .go{margin-top:auto;padding-top:.8rem;color:var(--brand);font-weight:600}
+.pill{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);background:var(--brand-tint);padding:.2rem .6rem;border-radius:999px}
+.soon{background:var(--bg-soft);border-style:dashed}
+.soon .glyph{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:var(--brand-tint);color:var(--brand)}
+.soon .glyph svg{width:26px;height:26px}
+footer{border-top:1px solid var(--line);padding:1.6rem 0 2.2rem;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.8rem}
+footer a{color:var(--muted)}
+footer p{margin:0}
+@media (max-width:720px){
+  .products{grid-template-columns:1fr}
+  .hero{padding-top:3rem}
+  .mark{display:none}
+  .mark{opacity:.1;right:-18%}
+}
+@media (prefers-reduced-motion:reduce){.mark path{animation:none;stroke-dashoffset:0}a.card{transition:none}}
+</style></head>
+<body>
+<header class="wrap">
+  <a class="logo" href="/" aria-label="Lequant">
+    <svg viewBox="0 0 96 96" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-linecap="round"><path d="M14 48 C 38 44, 62 28, 86 14" stroke-width="6" opacity=".35"/><path d="M14 48 C 38 46, 62 37, 86 31" stroke-width="6" opacity=".65"/><path d="M14 48 C 40 48, 64 48, 86 48" stroke-width="7.5"/><path d="M14 48 C 38 50, 62 59, 86 65" stroke-width="6" opacity=".65"/><path d="M14 48 C 38 52, 62 68, 86 82" stroke-width="6" opacity=".35"/></g><circle cx="14" cy="48" r="5.5" fill="currentColor"/></svg>
+    lequant
+  </a>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <svg class="mark" viewBox="0 0 96 96" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-linecap="round"><path pathLength="1" d="M14 48 C 38 44, 62 28, 86 14" stroke-width="3" opacity=".45"/><path pathLength="1" d="M14 48 C 38 46, 62 37, 86 31" stroke-width="3" opacity=".7"/><path pathLength="1" d="M14 48 C 40 48, 64 48, 86 48" stroke-width="4"/><path pathLength="1" d="M14 48 C 38 50, 62 59, 86 65" stroke-width="3" opacity=".7"/><path pathLength="1" d="M14 48 C 38 52, 62 68, 86 82" stroke-width="3" opacity=".45"/></g></svg>
+    <h1>O futuro não é uma linha. <em>É um leque.</em></h1>
+    <p>A Lequant faz software de decisão financeira. Em vez de um palpite, mostramos o leque de cenários possíveis, e o que cada um custa, para que decida com os números à frente.</p>
+  </section>
+
+  <section class="wrap">
+    <h2>Produtos</h2>
+    <div class="products">
+      <a class="card" href="/taxacerta/">
+        <div class="top"><img src="/taxacerta/img/icone.png" alt="" width="52" height="52"><div><h3>TaxaCerta</h3><span class="pill">Disponível</span></div></div>
+        <p>Compare propostas de crédito habitação em milhares de cenários de Euribor, simule amortizações e teste o pior cenário. Tudo calculado no telemóvel.</p>
+        <span class="go">Conhecer a TaxaCerta →</span>
+      </a>
+      <div class="card soon">
+        <div class="top"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div><div><h3>Em construção</h3><span class="pill">Brevemente</span></div></div>
+        <p>Estamos a trabalhar em novas ferramentas com a mesma ideia: decisões financeiras com o leque inteiro à vista, não só um número.</p>
+        <span class="go" style="color:var(--muted)">Novidades em breve</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Lequant · André Gouveia · <a href="mailto:support@lequant.eu">support@lequant.eu</a></p>
+    <p><a href="/taxacerta/suporte/">Suporte TaxaCerta</a> · <a href="/taxacerta/privacidade/">Política de Privacidade</a></p>
+  </div>
+</footer>
 </body>
 </html>

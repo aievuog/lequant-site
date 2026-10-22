@@ -5,6 +5,7 @@
 <meta name="description" content="Compare propostas de crédito habitação pelo que custam em milhares de cenários de Euribor. Simule amortizações e teste o pior cenário. Cálculos no telemóvel, sem conta nem anúncios.">
 <meta name="theme-color" content="#00804b">
 <link rel="icon" type="image/png" href="/taxacerta/img/icone.png">
+<link rel="preload" as="image" href="/taxacerta/clips/leque-inicio.webp">
 <link rel="apple-touch-icon" href="/taxacerta/img/apple-touch-icon.png">
 <meta name="apple-itunes-app" content="app-id=6801580525">
 <meta property="og:type" content="website">
@@ -212,7 +213,7 @@ footer p{margin:0}
     </ul>
   </div>
   <div class="hero-art">
-    <div class="phone"><video class="clip" muted playsinline preload="none" poster="/taxacerta/clips/leque.webp" width="540" height="1112" aria-label="Ecrã da TaxaCerta: a prestação daqui a 10 anos entre 586 € no cenário bom e 812 € no cenário mau."><source src="/taxacerta/clips/leque.mp4" type="video/mp4"></video></div>
+    <div class="phone"><video class="clip" muted playsinline preload="auto" poster="/taxacerta/clips/leque-inicio.webp" width="540" height="1112" aria-label="Ecrã da TaxaCerta: a prestação daqui a 10 anos entre 586 € no cenário bom e 812 € no cenário mau."><source src="/taxacerta/clips/leque.mp4" type="video/mp4"></video></div>
   </div>
 </section>
 
@@ -346,8 +347,8 @@ footer p{margin:0}
     <h3 id="android-beta-title">Testes abertos no Android</h3>
     <p>A TaxaCerta para Android chega em breve ao Google Play. Entre já, antes do lançamento público, e use a app durante pelo menos 14 dias: é isso que nos permite abri-la a todos.</p>
     <ol class="steps">
-      <li><strong>Peça para entrar no grupo de testes</strong><span>Com a conta Google do seu telemóvel Android. Aprovamos os pedidos no prazo de um dia e recebe um email quando estiver aprovado.</span><a class="btn" href="https://groups.google.com/g/taxacerta-android-beta/about" target="_blank" rel="noopener">Pedir para entrar</a></li>
-      <li><strong>Depois da aprovação, aceite o convite no Google Play</strong><span>Na mesma conta Google. Se o link ainda não funcionar, aguarde alguns minutos e tente de novo.</span><a class="btn" href="https://play.google.com/apps/testing/pt.taxacerta.taxacerta" target="_blank" rel="noopener">Aceitar convite</a></li>
+      <li><strong>Peça acesso</strong><span>Envie-nos o email da conta Google que usa no telemóvel Android. Adicionamos a conta no prazo de um dia e respondemos quando estiver pronta.</span><a class="btn" href="mailto:support@lequant.eu?subject=Testes%20Android%20TaxaCerta&amp;body=Ol%C3%A1%2C%20gostaria%20de%20participar%20nos%20testes%20da%20TaxaCerta%20para%20Android.%0A%0AConta%20Google%3A%20">Pedir acesso por email</a></li>
+      <li><strong>Depois da nossa resposta, aceite o convite no Google Play</strong><span>Na mesma conta Google. Se o link ainda não funcionar, aguarde alguns minutos e tente de novo.</span><a class="btn" href="https://play.google.com/apps/testing/pt.taxacerta.taxacerta" target="_blank" rel="noopener">Aceitar convite</a></li>
       <li><strong>Instale e experimente</strong><span>Descarregue a TaxaCerta no Google Play e mantenha-se no programa durante 14 dias. Sugestões e problemas: <a href="mailto:support@lequant.eu">support@lequant.eu</a>.</span><a class="btn" href="https://play.google.com/store/apps/details?id=pt.taxacerta.taxacerta" target="_blank" rel="noopener">Abrir no Google Play</a></li>
     </ol>
     <p class="fine">Ao entrar no grupo, o seu endereço de email fica visível para nós, apenas para gerir os testes. Pode sair do grupo e do programa a qualquer momento.</p>
@@ -408,7 +409,7 @@ footer p{margin:0}
 (function(){
   var vids=[].slice.call(document.querySelectorAll('video.clip'));
   var reduce=matchMedia('(prefers-reduced-motion: reduce)');
-  if(reduce.matches) return; // poster = final frame
+  if(reduce.matches){ vids.forEach(function(v){ if(v.poster.indexOf('leque-inicio')>-1) v.poster='/taxacerta/clips/leque.webp'; }); return; } // posters = final frames
   vids.forEach(function(v){ v.addEventListener('ended',function(){ v.dataset.done='1'; }); });
   if(!('IntersectionObserver' in window)){ vids.forEach(function(v){v.preload='auto'}); return; }
   var warm=new IntersectionObserver(function(es){es.forEach(function(e){
