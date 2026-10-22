@@ -57,7 +57,7 @@ footer a{color:var(--muted)}
 .fade{opacity:0;transform:translateY(12px);animation:rise .9s cubic-bezier(.22,.7,.3,1) forwards}
 .fade.d1{animation-delay:.15s}.fade.d2{animation-delay:.3s}.fade.d3{animation-delay:.45s}
 @keyframes rise{to{opacity:1;transform:none}}
-@media (max-width:640px){.veil{background:radial-gradient(ellipse 95% 38% at 50% 50%,var(--paper) 0%,rgba(245,244,241,.92) 55%,rgba(245,244,241,0) 85%)}.hero canvas{opacity:.75}}
+@media (max-width:640px){.veil{background:radial-gradient(ellipse 85% 26% at 50% 50%,rgba(245,244,241,.94) 0%,rgba(245,244,241,.7) 50%,rgba(245,244,241,0) 82%)}}
 @media (prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}.kicker i{animation:none}}
 </style>
 </head>
@@ -137,7 +137,7 @@ footer a{color:var(--muted)}
     // On narrow (portrait) screens keep the chart's landscape proportions in a
     // centred band, so the fan reads as the same fan starting at the left edge
     // instead of a tall, zoomed-in crop.
-    var ch=w<720?Math.min(h,Math.max(w*0.85,260)):h, top=(h-ch)/2;
+    var ch=w<720?Math.min(h,Math.max(w*1.25,320)):h, top=(h-ch)/2;
     var X=function(i){return 6+i/(T-1)*(w-12)}, Y=function(v){return top+ch-PAD-(v-VMIN)/(VMAX-VMIN)*(ch-2*PAD)};
     ctx.lineWidth=0.6;ctx.strokeStyle="rgba(20,24,31,.045)";
     paths.forEach(function(p){ctx.beginPath();for(var i=0;i<T;i++){if(i)ctx.lineTo(X(i),Y(p[i]));else ctx.moveTo(X(0),Y(p[0]))}ctx.stroke()});
