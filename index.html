@@ -29,6 +29,9 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2
 header{position:relative;z-index:2;display:flex;align-items:baseline;gap:9px;padding:26px max(26px,calc((100vw - 1160px)/2 + 26px))}
 .brand-name{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
 .brand-domain{font-size:11px;color:var(--muted-2);letter-spacing:.04em}
+nav{margin-left:auto;font-size:13.5px}
+nav a{color:var(--muted)}
+nav a:hover{color:var(--ink)}
 
 .hero{position:relative;flex:1;display:flex;align-items:center;justify-content:center;padding:40px 26px 80px;isolation:isolate}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-2;
@@ -60,6 +63,7 @@ footer a{color:var(--muted)}
 <header>
   <span class="brand-name">Lequant</span>
   <span class="brand-domain">lequant.eu</span>
+  <nav><a href="/produtos/">Produtos</a></nav>
 </header>
 
 <main class="hero">
@@ -75,14 +79,13 @@ footer a{color:var(--muted)}
 
 <footer>
   <span>© 2026 Lequant</span>
-  <span><a href="/taxacerta/">TaxaCerta</a> · <a href="/taxacerta/privacidade/">Política de Privacidade</a></span>
+  <span><a href="/produtos/">Produtos</a> · <a href="/taxacerta/privacidade/">Política de Privacidade</a></span>
 </footer>
 
 <script>
 "use strict";
-// Hero canvas ported from the Lequant landing (landing/landing.js): Monte Carlo
-// paths from a common origin, drawn as comets in perpetual motion; the pointer
-// gently pushes them aside. No numbers, no axes.
+// Decorative background: random mean-reverting paths from a common origin,
+// drawn as comets in motion; the pointer gently pushes them aside.
 (function(){
   var cv=document.getElementById("mc"); if(!cv||!cv.getContext) return;
   var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
