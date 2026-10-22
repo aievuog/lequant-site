@@ -32,11 +32,6 @@ main{flex:1;overflow-x:clip}
 .hero h1 em{font-style:normal;color:var(--brand)}
 .hero p{font-size:1.2rem;color:var(--muted);max-width:34rem;margin:0}
 .mark{position:absolute;right:-4%;top:50%;width:min(420px,45vw);transform:translateY(-50%);color:var(--brand);opacity:.16;pointer-events:none}
-.mark path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.4s cubic-bezier(.3,.7,.2,1) forwards}
-.mark path:nth-child(3){animation-delay:.1s}
-.mark path:nth-child(2),.mark path:nth-child(4){animation-delay:.25s}
-.mark path:nth-child(1),.mark path:nth-child(5){animation-delay:.4s}
-@keyframes draw{to{stroke-dashoffset:0}}
 h2{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 1rem}
 .products{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;padding-bottom:4rem}
 .card{border:1px solid var(--line);border-radius:22px;padding:1.6rem;background:var(--card);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.5rem;transition:transform .15s ease,border-color .15s ease}
@@ -60,7 +55,7 @@ footer p{margin:0}
   .mark{display:none}
   .mark{opacity:.1;right:-18%}
 }
-@media (prefers-reduced-motion:reduce){.mark path{animation:none;stroke-dashoffset:0}a.card{transition:none}}
+@media (prefers-reduced-motion:reduce){a.card{transition:none}}
 </style></head>
 <body>
 <header class="wrap">
@@ -72,7 +67,7 @@ footer p{margin:0}
 
 <main>
   <section class="wrap hero">
-    <svg class="mark" viewBox="0 0 96 96" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-linecap="round"><path pathLength="1" d="M14 48 C 38 44, 62 28, 86 14" stroke-width="3" opacity=".45"/><path pathLength="1" d="M14 48 C 38 46, 62 37, 86 31" stroke-width="3" opacity=".7"/><path pathLength="1" d="M14 48 C 40 48, 64 48, 86 48" stroke-width="4"/><path pathLength="1" d="M14 48 C 38 50, 62 59, 86 65" stroke-width="3" opacity=".7"/><path pathLength="1" d="M14 48 C 38 52, 62 68, 86 82" stroke-width="3" opacity=".45"/></g></svg>
+    <svg class="mark" viewBox="0 0 96 96" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-linecap="round"><path d="M14 48 C 38 44, 62 28, 86 14" stroke-width="3" opacity=".45"/><path d="M14 48 C 38 46, 62 37, 86 31" stroke-width="3" opacity=".7"/><path d="M14 48 C 40 48, 64 48, 86 48" stroke-width="4"/><path d="M14 48 C 38 50, 62 59, 86 65" stroke-width="3" opacity=".7"/><path d="M14 48 C 38 52, 62 68, 86 82" stroke-width="3" opacity=".45"/></g></svg>
     <h1>O futuro não é uma linha. <em>É um leque.</em></h1>
     <p>A Lequant faz software de decisão financeira. Em vez de um palpite, mostramos o leque de cenários possíveis, e o que cada um custa, para que decida com os números à frente.</p>
   </section>
@@ -100,5 +95,15 @@ footer p{margin:0}
     <p><a href="/taxacerta/suporte/">Suporte TaxaCerta</a> · <a href="/taxacerta/privacidade/">Política de Privacidade</a></p>
   </div>
 </footer>
+<script>
+// Draw the background fan in, measuring each path (pathLength-based dashes render as dots in some browsers).
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var ps=[].slice.call(document.querySelectorAll('.mark path')), delays=[.4,.25,.1,.25,.4];
+  ps.forEach(function(p,i){ var L=p.getTotalLength(); p.style.strokeDasharray=L+' '+L; p.style.strokeDashoffset=L;
+    p.style.transition='stroke-dashoffset 1.4s cubic-bezier(.3,.7,.2,1) '+delays[i]+'s'; });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ ps.forEach(function(p){ p.style.strokeDashoffset='0'; }); }); });
+})();
+</script>
 </body>
 </html>

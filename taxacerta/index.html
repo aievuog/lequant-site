@@ -94,7 +94,7 @@ h1 em{font-style:normal;color:var(--brand)}
 .phone video{display:block;border-radius:34px;width:100%;height:auto;aspect-ratio:540/1112;object-fit:cover;object-position:top;background:#fff}
 .bgfan{position:fixed;left:50%;top:50%;width:min(1400px,160vw);height:auto;transform:translate(-50%,-50%);color:var(--brand);opacity:.09;z-index:0;pointer-events:none}
 body>header,body>main,body>footer{position:relative;z-index:1}
-.bgfan .ray{stroke-dasharray:1 1;stroke-dashoffset:1}
+.bgfan .ray{opacity:0}
 .hero-art{position:relative;isolation:isolate}
 
 /* quote band */
@@ -178,11 +178,11 @@ footer p{margin:0}
 <body>
 <svg class="bgfan" viewBox="28 8 62 80" fill="none" aria-hidden="true">
   <g stroke="currentColor" stroke-linecap="round">
-    <path class="ray" pathLength="1" d="M31 47.75 C 48 43.75, 66 29, 86 13.75" stroke-width="1.6" opacity=".45"/>
-    <path class="ray" pathLength="1" d="M31 47.75 C 48 45.75, 66 38, 86 30.75" stroke-width="1.6" opacity=".7"/>
-    <path class="ray" pathLength="1" d="M31 47.75 C 48 47.75, 67 47.75, 86 47.75" stroke-width="2.1"/>
-    <path class="ray" pathLength="1" d="M31 47.75 C 48 49.75, 66 57.5, 86 64.75" stroke-width="1.6" opacity=".7"/>
-    <path class="ray" pathLength="1" d="M31 47.75 C 48 51.75, 66 66.5, 86 81.75" stroke-width="1.6" opacity=".45"/>
+    <path class="ray" d="M31 47.75 C 48 43.75, 66 29, 86 13.75" stroke-width="1.6" opacity=".45"/>
+    <path class="ray" d="M31 47.75 C 48 45.75, 66 38, 86 30.75" stroke-width="1.6" opacity=".7"/>
+    <path class="ray" d="M31 47.75 C 48 47.75, 67 47.75, 86 47.75" stroke-width="2.1"/>
+    <path class="ray" d="M31 47.75 C 48 49.75, 66 57.5, 86 64.75" stroke-width="1.6" opacity=".7"/>
+    <path class="ray" d="M31 47.75 C 48 51.75, 66 66.5, 86 81.75" stroke-width="1.6" opacity=".45"/>
   </g>
 </svg>
 
@@ -382,8 +382,8 @@ footer p{margin:0}
 // Background fan: the lines draw from left to right as the page scrolls.
 (function(){
   var fan=document.querySelector('.bgfan'); if(!fan) return;
-  var rays=[].slice.call(fan.querySelectorAll('.ray'));
-  function set(v){ rays.forEach(function(r){ r.setAttribute('stroke-dashoffset',(1-v).toFixed(4)); r.style.strokeDashoffset=(1-v).toFixed(4); }); }
+  var rays=[].slice.call(fan.querySelectorAll('.ray')).map(function(r){ var L=r.getTotalLength(); r.style.strokeDasharray=L+' '+L; r.style.opacity=r.getAttribute('opacity')||1; return {el:r,L:L}; });
+  function set(v){ rays.forEach(function(r){ r.el.style.strokeDashoffset=(r.L*(1-v)).toFixed(2); }); }
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){ set(1); return; }
   var ticking=false;
   function update(){
