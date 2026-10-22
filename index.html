@@ -1,108 +1,154 @@
 <!doctype html>
 <html lang="pt-PT">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lequant</title>
-<meta name="description" content="Lequant: software de decisão financeira feito em Portugal. O futuro não é uma linha. É um leque.">
-<meta name="theme-color" content="#0E6F52">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="description" content="O futuro não é uma linha. É um leque. Em breve.">
 <meta property="og:title" content="Lequant">
-<meta property="og:description" content="O futuro não é uma linha. É um leque. Quantifique-o.">
-<meta property="og:image" content="https://lequant.eu/taxacerta/img/partilha.png">
+<meta property="og:description" content="O futuro não é uma linha. É um leque. Em breve.">
+<meta name="theme-color" content="#f5f4f1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preload" href="/fonts/SourceSerif4-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
 <style>
+@font-face{font-family:"Source Serif 4";font-weight:400;font-display:swap;src:url("/fonts/SourceSerif4-Regular.ttf") format("truetype")}
+@font-face{font-family:"Source Serif 4";font-weight:600;font-display:swap;src:url("/fonts/SourceSerif4-SemiBold.ttf") format("truetype")}
 :root{
-  color-scheme:light dark;
-  --bg:#ffffff;--bg-soft:#f4f7f5;--fg:#17241e;--muted:#5b666f;--line:#dfe4e1;
-  --brand:#0e6f52;--brand-tint:#e3f1ea;--card:#ffffff;
+  color-scheme:light;
+  --paper:#f5f4f1;--ink:#14181f;--blue:#2f5c8f;--blue-hover:#1d3d63;
+  --muted:#5a5f68;--muted-2:#8b8f96;--hairline:#e2e0d9;
+  --serif:"Source Serif 4",Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-@media (prefers-color-scheme:dark){:root{
-  --bg:#101413;--bg-soft:#161c1a;--fg:#e8edf1;--muted:#9aa6b0;--line:#26302c;
-  --brand:#3fb47f;--brand-tint:#173326;--card:#161c1a;
-}}
 *{box-sizing:border-box}
-html{background:var(--bg)}
-body{margin:0;min-height:100vh;display:flex;flex-direction:column;font:17px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;background:var(--bg);color:var(--fg)}
-a{color:var(--brand)}
-.wrap{width:100%;max-width:60rem;margin:0 auto;padding:0 1.25rem}
-header{padding:1.4rem 0}
-.logo{display:inline-flex;align-items:center;gap:.65rem;color:var(--fg);text-decoration:none;font-weight:650;font-size:1.35rem;letter-spacing:-.02em}
-.logo svg{width:44px;height:44px;color:var(--brand)}
-main{flex:1;overflow-x:clip}
-.hero{padding-block:4.5rem 3.5rem;position:relative}
-.hero h1{font-size:clamp(2.4rem,6vw,4rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 1.2rem;max-width:14ch}
-.hero h1 em{font-style:normal;color:var(--brand)}
-.hero p{font-size:1.2rem;color:var(--muted);max-width:34rem;margin:0}
-.mark{position:absolute;right:-4%;top:50%;width:min(420px,45vw);transform:translateY(-50%);color:var(--brand);opacity:.16;pointer-events:none}
-h2{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 1rem}
-.products{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;padding-bottom:4rem}
-.card{border:1px solid var(--line);border-radius:22px;padding:1.6rem;background:var(--card);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.5rem;transition:transform .15s ease,border-color .15s ease}
-a.card:hover{transform:translateY(-3px);border-color:var(--brand)}
-.card .top{display:flex;align-items:center;gap:.8rem}
-.card img{width:52px;height:52px;border-radius:12px}
-.card h3{margin:0;font-size:1.3rem;letter-spacing:-.01em}
-.card p{margin:0;color:var(--muted)}
-.card .go{margin-top:auto;padding-top:.8rem;color:var(--brand);font-weight:600}
-.pill{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);background:var(--brand-tint);padding:.2rem .6rem;border-radius:999px}
-.soon{background:var(--bg-soft);border-style:dashed}
-.soon .glyph{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:var(--brand-tint);color:var(--brand)}
-.soon .glyph svg{width:26px;height:26px}
-footer{border-top:1px solid var(--line);padding:1.6rem 0 2.2rem;color:var(--muted);font-size:.9rem}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.8rem}
+html{background:var(--paper)}
+body{margin:0;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--blue);text-decoration:none}
+a:hover{color:var(--blue-hover)}
+a:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
+
+header{position:relative;z-index:2;display:flex;align-items:baseline;gap:9px;padding:26px max(26px,calc((100vw - 1160px)/2 + 26px))}
+.brand-name{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.brand-domain{font-size:11px;color:var(--muted-2);letter-spacing:.04em}
+
+.hero{position:relative;flex:1;display:flex;align-items:center;justify-content:center;padding:40px 26px 80px;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-2;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 88%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 88%,transparent 100%)}
+.veil{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 58% 52% at 50% 50%,var(--paper) 0%,rgba(245,244,241,.88) 46%,rgba(245,244,241,0) 78%)}
+.content{text-align:center;display:flex;flex-direction:column;align-items:center}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--muted-2)}
+.kicker i{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,92,143,.45)}70%{box-shadow:0 0 0 7px rgba(47,92,143,0)}100%{box-shadow:0 0 0 0 rgba(47,92,143,0)}}
+h1{font-family:var(--serif);margin:20px 0 0;font-size:clamp(36px,8.5vw,64px);line-height:1.04;letter-spacing:-.02em;font-weight:600;max-width:16ch;text-wrap:balance}
+h1 em{font-style:normal;color:var(--blue)}
+.sub{margin:20px auto 0;font-size:17px;line-height:1.5;color:var(--muted);max-width:40ch;text-wrap:pretty}
+.contact{margin-top:30px;font-size:14px;color:var(--muted)}
+.contact a{border-bottom:1px solid var(--hairline);padding-bottom:1px}
+.contact a:hover{border-color:var(--blue-hover)}
+
+footer{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding:18px max(26px,calc((100vw - 1160px)/2 + 26px)) 26px;border-top:1px solid var(--hairline);font-size:12.5px;color:var(--muted-2)}
 footer a{color:var(--muted)}
-footer p{margin:0}
-@media (max-width:720px){
-  .products{grid-template-columns:1fr}
-  .hero{padding-top:3rem}
-  .mark{display:none}
-  .mark{opacity:.1;right:-18%}
-}
-@media (prefers-reduced-motion:reduce){a.card{transition:none}}
-</style></head>
+.fade{opacity:0;transform:translateY(12px);animation:rise .9s cubic-bezier(.22,.7,.3,1) forwards}
+.fade.d1{animation-delay:.15s}.fade.d2{animation-delay:.3s}.fade.d3{animation-delay:.45s}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (max-width:640px){.veil{background:radial-gradient(ellipse 95% 38% at 50% 50%,var(--paper) 0%,rgba(245,244,241,.92) 55%,rgba(245,244,241,0) 85%)}.hero canvas{opacity:.75}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}.kicker i{animation:none}}
+</style>
+</head>
 <body>
-<header class="wrap">
-  <a class="logo" href="/" aria-label="Lequant">
-    <svg viewBox="0 0 96 96" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-linecap="round"><path d="M14 48 C 38 44, 62 28, 86 14" stroke-width="6" opacity=".35"/><path d="M14 48 C 38 46, 62 37, 86 31" stroke-width="6" opacity=".65"/><path d="M14 48 C 40 48, 64 48, 86 48" stroke-width="7.5"/><path d="M14 48 C 38 50, 62 59, 86 65" stroke-width="6" opacity=".65"/><path d="M14 48 C 38 52, 62 68, 86 82" stroke-width="6" opacity=".35"/></g><circle cx="14" cy="48" r="5.5" fill="currentColor"/></svg>
-    lequant
-  </a>
+<header>
+  <span class="brand-name">Lequant</span>
+  <span class="brand-domain">lequant.eu</span>
 </header>
 
-<main>
-  <section class="wrap hero">
-    <svg class="mark" viewBox="0 0 96 96" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-linecap="round"><path d="M14 48 C 38 44, 62 28, 86 14" stroke-width="3" opacity=".45"/><path d="M14 48 C 38 46, 62 37, 86 31" stroke-width="3" opacity=".7"/><path d="M14 48 C 40 48, 64 48, 86 48" stroke-width="4"/><path d="M14 48 C 38 50, 62 59, 86 65" stroke-width="3" opacity=".7"/><path d="M14 48 C 38 52, 62 68, 86 82" stroke-width="3" opacity=".45"/></g></svg>
-    <h1>O futuro não é uma linha. <em>É um leque.</em></h1>
-    <p>A Lequant faz software de decisão financeira. Em vez de um palpite, mostramos o leque de cenários possíveis, e o que cada um custa, para que decida com os números à frente.</p>
-  </section>
-
-  <section class="wrap">
-    <h2>Produtos</h2>
-    <div class="products">
-      <a class="card" href="/taxacerta/">
-        <div class="top"><img src="/taxacerta/img/icone.png" alt="" width="52" height="52"><div><h3>TaxaCerta</h3><span class="pill">Disponível</span></div></div>
-        <p>Compare propostas de crédito habitação em milhares de cenários de Euribor, simule amortizações e teste o pior cenário. Tudo calculado no telemóvel.</p>
-        <span class="go">Conhecer a TaxaCerta →</span>
-      </a>
-      <div class="card soon">
-        <div class="top"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div><div><h3>Em construção</h3><span class="pill">Brevemente</span></div></div>
-        <p>Estamos a trabalhar em novas ferramentas com a mesma ideia: decisões financeiras com o leque inteiro à vista, não só um número.</p>
-        <span class="go" style="color:var(--muted)">Novidades em breve</span>
-      </div>
-    </div>
-  </section>
+<main class="hero">
+  <canvas id="mc" aria-hidden="true"></canvas>
+  <div class="veil"></div>
+  <div class="content">
+    <div class="kicker fade"><i></i>Em breve</div>
+    <h1 class="fade d1">O futuro não é uma linha. <em>É um leque.</em></h1>
+    <p class="sub fade d2">Estamos a preparar uma coisa nova. Para já, fica a ideia.</p>
+    <p class="contact fade d3">Quer saber primeiro? <a href="mailto:support@lequant.eu?subject=Lequant">support@lequant.eu</a></p>
+  </div>
 </main>
 
 <footer>
-  <div class="wrap">
-    <p>Lequant · André Gouveia · <a href="mailto:support@lequant.eu">support@lequant.eu</a></p>
-    <p><a href="/taxacerta/suporte/">Suporte TaxaCerta</a> · <a href="/taxacerta/privacidade/">Política de Privacidade</a></p>
-  </div>
+  <span>© 2026 Lequant</span>
+  <span><a href="/taxacerta/">TaxaCerta</a> · <a href="/taxacerta/privacidade/">Política de Privacidade</a></span>
 </footer>
+
 <script>
-// Draw the background fan in, measuring each path (pathLength-based dashes render as dots in some browsers).
+"use strict";
+// Hero canvas ported from the Lequant landing (landing/landing.js): Monte Carlo
+// paths from a common origin, drawn as comets in perpetual motion; the pointer
+// gently pushes them aside. No numbers, no axes.
 (function(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var ps=[].slice.call(document.querySelectorAll('.mark path')), delays=[.4,.25,.1,.25,.4];
-  ps.forEach(function(p,i){ var L=p.getTotalLength(); p.style.strokeDasharray=L+' '+L; p.style.strokeDashoffset=L;
-    p.style.transition='stroke-dashoffset 1.4s cubic-bezier(.3,.7,.2,1) '+delays[i]+'s'; });
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){ ps.forEach(function(p){ p.style.strokeDashoffset='0'; }); }); });
+  var cv=document.getElementById("mc"); if(!cv||!cv.getContext) return;
+  var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var PAD=18, VMIN=-1.2, VMAX=5.4, START=2.15, T=150, CYCLE=8000, TAIL=18, FORCE=24;
+
+  function randn(){var u=0,v=0;while(u===0)u=Math.random();while(v===0)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+  function makePaths(n){
+    var theta=2.0,kappa=0.35,sigma=1.15,dt=10/(T-1),paths=[];
+    for(var i=0;i<n;i++){var p=new Float32Array(T),v=START;p[0]=v;
+      for(var t=1;t<T;t++){v+=kappa*(theta-v)*dt+sigma*Math.sqrt(dt)*randn();if(v<-1.1)v=-1.1+(-1.1-v)*0.3;p[t]=v}
+      paths.push(p)}
+    var med=new Float32Array(T),col=new Float64Array(n);
+    for(var tt=0;tt<T;tt++){for(var j=0;j<n;j++)col[j]=paths[j][tt];var s=Array.prototype.slice.call(col).sort(function(a,b){return a-b});med[tt]=s[Math.floor(n/2)]}
+    return {paths:paths,med:med};
+  }
+  var full=makePaths(1000), drawn=[];
+  for(var i=0;i<full.paths.length;i+=8) drawn.push(full.paths[i]);
+  var phases=drawn.map(function(){return Math.random()});
+
+  var mouse={x:-999,y:-999,px:-999,py:-999,s:0,target:0}, wx=0, wy=0;
+  addEventListener("pointermove",function(e){
+    var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    mouse.x=x;mouse.y=y;if(mouse.px<-900){mouse.px=x;mouse.py=y}
+    mouse.target=(x>=0&&x<=r.width&&y>=0&&y<=r.height)?1:0;
+  },{passive:true});
+  function warp(x,y,push){
+    wx=x;wy=y;if(push<=0.3)return;
+    var dx=x-mouse.px,dy=y-mouse.py,d2=dx*dx+dy*dy;if(d2>=60000)return;
+    var g=push*Math.exp(-d2/16000),inv=1/Math.sqrt(d2+900);wy=y+dy*inv*g;wx=x+dx*inv*g*0.3;
+  }
+  function fit(){
+    var dpr=Math.min(2,devicePixelRatio||1),w=cv.clientWidth,h=cv.clientHeight;
+    if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr)}
+    var ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);return {ctx:ctx,w:w,h:h};
+  }
+  function draw(t){
+    var f=fit(); if(!f.w) return;
+    var ctx=f.ctx,w=f.w,h=f.h;
+    var X=function(i){return 6+i/(T-1)*(w-12)}, Y=function(v){return h-PAD-(v-VMIN)/(VMAX-VMIN)*(h-2*PAD)};
+    ctx.lineWidth=0.6;ctx.strokeStyle="rgba(20,24,31,.045)";
+    drawn.forEach(function(p){ctx.beginPath();for(var i=0;i<T;i++){if(i)ctx.lineTo(X(i),Y(p[i]));else ctx.moveTo(X(0),Y(p[0]))}ctx.stroke()});
+    var push=FORCE*mouse.s;
+    ctx.save();ctx.lineWidth=1.1;ctx.lineJoin="round";ctx.lineCap="round";
+    drawn.forEach(function(p,j){
+      var hn=reduced?(0.2+phases[j]*0.6):((t/CYCLE+phases[j])%1), head=hn*(T-1);
+      var h0=Math.floor(head),fr=head-h0,s0=h0-TAIL,b0=s0+1>0?s0+1:0;
+      ctx.strokeStyle="rgba(47,92,143,.32)";ctx.beginPath();
+      for(var i=b0;i<=h0;i++){warp(X(i),Y(p[i]),push);if(i===b0)ctx.moveTo(wx,wy);else ctx.lineTo(wx,wy)}
+      var i1=h0+1<T?h0+1:T-1;warp(X(head),Y(p[h0]+(p[i1]-p[h0])*fr),push);var hx=wx,hy=wy;ctx.lineTo(hx,hy);ctx.stroke();
+      if(s0>=0&&fr<0.995){ctx.strokeStyle="rgba(47,92,143,"+(0.32*(1-fr)).toFixed(3)+")";ctx.beginPath();
+        warp(X(s0),Y(p[s0]),push);ctx.moveTo(wx,wy);warp(X(s0+1),Y(p[s0+1]),push);ctx.lineTo(wx,wy);ctx.stroke()}
+      ctx.fillStyle="rgba(47,92,143,.8)";ctx.beginPath();ctx.arc(hx,hy,1.7,0,7);ctx.fill();
+    });
+    ctx.restore();
+    ctx.lineWidth=1.5;ctx.strokeStyle="rgba(47,92,143,.5)";ctx.beginPath();
+    for(var k=0;k<T;k++){if(k)ctx.lineTo(X(k),Y(full.med[k]));else ctx.moveTo(X(0),Y(full.med[0]))}
+    ctx.stroke();
+  }
+  if(reduced){ draw(0); addEventListener("resize",function(){draw(0)}); return; }
+  var t0=performance.now(), raf=0, visible=!document.hidden;
+  function tick(now){
+    mouse.s+=(mouse.target-mouse.s)*0.16;mouse.px+=(mouse.x-mouse.px)*0.3;mouse.py+=(mouse.y-mouse.py)*0.3;
+    draw(now-t0); raf=visible?requestAnimationFrame(tick):0;
+  }
+  document.addEventListener("visibilitychange",function(){visible=!document.hidden;if(visible&&!raf)raf=requestAnimationFrame(tick)});
+  raf=requestAnimationFrame(tick);
 })();
 </script>
 </body>
